@@ -11,7 +11,7 @@ class Worker(threading.Thread):
     def run(self):
         while True:
            waktu = datetime.datetime.now()  
-           print "{} saya worker nomor {}" . format(waktu,self.nomor)
+           print("{} saya worker nomor {}" . format(waktu,self.nomor))
            time.sleep(1)
 
 def main():
@@ -31,4 +31,4 @@ if __name__ == "__main__":
       while True:
         pass
     except KeyboardInterrupt:
-      print " Program Stop .."  
+      print(" Program Stop ..")

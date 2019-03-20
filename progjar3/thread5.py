@@ -7,15 +7,15 @@ def cls():
     for n in range(0, 64, 1): print("\r\n")
 
 def locate(user_string="*", x=0, y=0):
-	x=int(x)
-	y=int(y)
-	if x>=255: x=255
-	if y>=255: y=255
-	if x<=0: x=0
-	if y<=0: y=0
-	HORIZ=str(x)
-	VERT=str(y)
-	print("\033["+VERT+";"+HORIZ+"f"+user_string)
+    x=int(x)
+    y=int(y)
+    if x>=255: x=255
+    if y>=255: y=255
+    if x<=0: x=0
+    if y<=0: y=0
+    HORIZ=str(x)
+    VERT=str(y)
+    print("\033["+VERT+";"+HORIZ+"f"+user_string)
 
 
 class Star(threading.Thread):
@@ -51,4 +51,4 @@ if __name__ == "__main__":
       while True:
         pass
     except KeyboardInterrupt:
-      print " Program Stop .."  
+      print(" Program Stop ..")
