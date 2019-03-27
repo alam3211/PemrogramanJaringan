@@ -37,7 +37,7 @@ def setupImages(ip, port):
 
 def checkRequest():
    while True:
-      data, address = sock.recvfrom(1024)
+      data, address = sock.recvfrom(2048)
       if data == "Terhubung":
          print "Telah terhubung dengan " + str(address[0]) + ":" + str(address[1])
          thread = Thread(target=setupImages, args=address)

@@ -17,7 +17,7 @@ print "Send command: cmd_connect"
 sock.sendto("Terhubung", ADDRESS)
 
 while True:
-    data, address = sock.recvfrom(1024)
+    data, address = sock.recvfrom(2048)
     str_data = str(data)
     if str_data[:8] == "Mengirim":
         filename = "copy of " + str_data[9:].strip()
