@@ -14,19 +14,20 @@ fp = None
 filename = ""
 
 print "Send command: cmd_connect"
-sock.sendto("Menyambung" , ADDRESS)
+sock.sendto("Terhubung", ADDRESS)
 
 while True:
     data, address = sock.recvfrom(1024)
-    if data == "Mengirim":
-        filename = "_" + str_data[10:].strip()
-        print "Mengirimkan gambar " + filename
+    str_data = str(data)
+    if str_data[:8] == "Mengirim":
+        filename = "copy of " + str_data[9:].strip()
+        print "Mengirim gambar " + filename
         fp = open(filename, "wb+")
-    elif data == "Selesai":
-        print "Pengiriman gambar selesai " + filename
+    elif str_data[:7] == "Selesai":
+        print "Pengiriman selesai " + filename
         fp.close()
-    elif data == "Diskoneksi":
-        print "Koneksi dengan server telah diputus"
+    elif str_data[:10] == "Diskoneksi":
+        print "Memutus koneksi"
         break
     else:
         fp.write(data)

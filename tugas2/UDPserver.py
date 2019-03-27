@@ -1,5 +1,6 @@
-import socket
 from threading import Thread
+import socket
+import time
 
 IP = "127.0.0.1"
 PORT = 8888
@@ -19,35 +20,28 @@ def sendImage(filename, ip, port):
    payload_length = len(payload)
    fp.close()
    target_address = (ip, port)
-   print "Mengirimkan " + filename + ", target: " + str(ip) + ":" + str(port)
+   print "Melakukan pengiriman untuk file : " + filename + ", target: " + str(ip) + ":" + str(port)
    sock.sendto("Mengirim" + " " + filename, target_address)
-   for i in range((payload_length / 1024) + 1):
-      chunk = []
-      if (i + 1) * 1024 > payload_length:
-         chunk = payload[i * 1024:payload_length]
-         chunk.ljust(1024)
-      else:
-         chunk = payload[i * 1024:(i + 1) * 1024]
-      sock.sendto(chunk, target_address)
-   print "Pengiriman telah selesai" + str(ip) + ":" + str(port)
+   for i in payload:
+      sock.sendto(i, target_address)
+   print "Pengiriman ke " + str(ip) + ":" + str(port) + " selesai"
    sock.sendto("Selesai", target_address)
 
-def listImages(ip, port):
-    listimages = ["bart.png","kucing.jpg","kucingjuga.jpg","kucingbobok.jpg"]
-    target_address = (ip, port)
-    for x in listimages:
-        sendImage(x , ip, port)
-        print "Pengiriman terhadap " + str(ip) + ":" + str(port) + " telah selesai."
-        sock.sendto("Diskoneksi", target_address)
+def setupImages(ip, port):
+   target_address = (ip, port)
+   listImages = ["bart.png","kucing.jpg","kucingjuga.jpg","kucingbobok.jpg"]
+   for x in listImages:
+    sendImage(x, ip, port)
+   print "Melakukan diskoneksi" + str(ip) + ":" + str(port)
+   sock.sendto("Diskoneksi", target_address)
 
 def checkRequest():
    while True:
-    print "Server siap, menunggu client..."
-    data, address = sock.recvfrom(1024)
-    if data == "Terkoneksi":
-        print "Terkoneksi pada " + str(address[0]) + ":" + str(address[1])
-        thread = Thread(target=listImages, args=address)
-        thread.start()
+      data, address = sock.recvfrom(1024)
+      if data == "Terhubung":
+         print "Telah terhubung dengan " + str(address[0]) + ":" + str(address[1])
+         thread = Thread(target=setupImages, args=address)
+         thread.start()
 
 while True:
    checkRequest()
