@@ -1,7 +1,7 @@
 from socket import *
 import socket
 import threading
-import thread
+import _thread
 import time
 import sys
 import json
