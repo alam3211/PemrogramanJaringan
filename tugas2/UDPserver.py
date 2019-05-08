@@ -1,15 +1,11 @@
 from threading import Thread
 import socket
+import os, os.path
 import time
 
 IP = "127.0.0.1"
 PORT = 8888
 ADDRESS = (IP, PORT)
-
-CONNECT = "cmd_connect"
-START = "cmd_start"
-FINISH = "cmd_finish"
-DISCONNECT = "cmd_disconnect"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(ADDRESS)
